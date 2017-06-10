@@ -53,7 +53,7 @@ router.post('/api/v1/auth', (req, res, next) => {
     const query = client.query('SELECT id FROM users where username = $1 and pass = $2',
     [data.username, data.pass]);
     query.on('row', (row) => {
-      console.log(row);
+      console.log(row.id);
     });
     // Stream results back one row at a time
     query.on('row', (row) => {
