@@ -57,15 +57,17 @@ router.post('/api/v1/auth', (req, res, next) => {
 	query.on('row', (row) => {
       console.log(row.id);
 	  if(''!=row.id){
-		console.log("zmieniam na true");
-		tmp=true;
+		//create new token in tokens table
+		console.log("Create new token");
+		query_add_token=client.query('INSERT INTO tokens (userid, dateadd) values ($1, $2)',
+    [row.id, "1"]);
+		query_add_token.on('row', (row) => {
+			results2.push(row);
+		});
 	  }
 	});
 	
 	console.log("wartosc tmp po: "+tmp);
-	if(tmp){
-		console.log("USTAW TOKEN");
-	}
     // Stream results back one row at a time
     query.on('row', (row) => {
       results.push(row);
@@ -73,7 +75,7 @@ router.post('/api/v1/auth', (req, res, next) => {
     // After all data is returned, close connection and return results
     query.on('end', () => {
       done();
-      return res.json(results);
+      return res.json(results2);
     });
   });
 });
