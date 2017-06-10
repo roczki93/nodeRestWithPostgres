@@ -59,26 +59,20 @@ router.post('/api/v1/auth', (req, res, next) => {
 	  if(''!=row.id){
 		//create new token in tokens table
 		console.log("Create new token");
-		query_add_token=client.query('INSERT INTO tokens (userid) values ($1)',
-    [row.id]);
-		query_add_token.on('row', (row) => {
-			console.log("result is here "+row.id);
-			res.co=row;
-			results.push(row);			
-		});
+		query_add_token=client.query('INSERT INTO tokens (userid) values ($1)', [row.id]);
 	  }
 	});
     // Stream results back one row at a time
     query.on('row', (row) => {
       results.push(row);
     });
-	
+	//query_add_token.on('row', (row) => {
+	//	results.push(row);			
+	//});
     // After all data is returned, close connection and return results
     query.on('end', () => {
       done();
       return res.json(results);
-	 
-	 // return res.co;
 	});
   });
 });
