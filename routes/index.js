@@ -75,8 +75,8 @@ router.post('/api/v1/auth', (req, res, next) => {
     // After all data is returned, close connection and return results
     query.on('end', () => {
       done();
-      return res.json(results.id);
-	 // return token;
+     // return res.json(results);
+	  return "true";
 	});
   });
 });
