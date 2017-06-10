@@ -56,7 +56,8 @@ router.post('/api/v1/auth', (req, res, next) => {
 	console.log("wartosc tmp przed: "+tmp);
 	query.on('row', (row) => {
       console.log(row.id);
-	  if(row.id){
+	  if(''!=row.id){
+		console.log("zmieniam na true");
 		tmp=true;
 	  }
 	});
