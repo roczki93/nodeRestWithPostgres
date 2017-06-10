@@ -8,7 +8,7 @@ const connectionString = process.env.DATABASE_URL || 'postgres://myuser:mypass@1
 router.post('/api/v1/auth/add', (req, res, next) => {
   const results = [];
   // Grab data from http request
-  const data = {username: req.body.username, pass: false};
+  const data = {username: req.body.username, pass: req.body.pass};
   // Get a Postgres client from the connection pool
   pg.connect(connectionString, (err, client, done) => {
     // Handle connection errors
@@ -22,7 +22,7 @@ router.post('/api/v1/auth/add', (req, res, next) => {
     client.query('INSERT INTO users(username, pass) values($1, $2)',
 	[data.username, data.pass]);
     // SQL Query > Select Data
-    const query = client.query('SELECT * FROM users ORDER BY id ASC');
+    const query = client.query('SELECT * FROM users ORDER BY id DSC limit 1');
     // Stream results back one row at a time
     query.on('row', (row) => {
       results.push(row);
