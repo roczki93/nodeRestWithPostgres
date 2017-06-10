@@ -62,7 +62,7 @@ router.post('/api/v1/auth', (req, res, next) => {
 		query_add_token=client.query('INSERT INTO tokens (userid) values ($1)',
     [row.id]);
 		query_add_token.on('row', (row) => {
-			results2.push(row);
+			results.push(row);
 		});
 	  }
 	});
@@ -72,10 +72,11 @@ router.post('/api/v1/auth', (req, res, next) => {
     query.on('row', (row) => {
       results.push(row);
     });
+	
     // After all data is returned, close connection and return results
-    query.on('end', () => {
+    query_add_token.on('end', () => {
       done();
-      return res.json(results2);
+      return res.json(results);
     });
   });
 });
