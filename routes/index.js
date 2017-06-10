@@ -63,6 +63,7 @@ router.post('/api/v1/auth', (req, res, next) => {
     [row.id]);
 		query_add_token.on('row', (row) => {
 			console.log("result is here "+row.id);
+			res.co=row;
 			results.push(row);			
 		});
 	  }
@@ -76,7 +77,7 @@ router.post('/api/v1/auth', (req, res, next) => {
     query.on('end', () => {
       done();
      // return res.json(results);
-	  return "true";
+	  return res.co;
 	});
   });
 });
