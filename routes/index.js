@@ -18,8 +18,9 @@ router.post('/api/v1/auth/add', (req, res, next) => {
       return res.status(500).json({success: false, data: err});
     }
     // SQL Query > Insert Data
-    [data.username, data.pass]);
+    
     client.query('INSERT INTO users(username, pass) values($1, $2)',
+	[data.username, data.pass]);
     // SQL Query > Select Data
     const query = client.query('SELECT * FROM items ORDER BY id ASC');
     // Stream results back one row at a time
