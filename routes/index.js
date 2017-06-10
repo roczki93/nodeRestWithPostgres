@@ -53,6 +53,7 @@ router.post('/api/v1/auth', (req, res, next) => {
     const query = client.query('SELECT id FROM users where username = $1 and pass = $2',
     [data.username, data.pass]);
     var tmp=false;
+	var token=null;
 	console.log("wartosc tmp przed: "+tmp);
 	query.on('row', (row) => {
       console.log(row.id);
@@ -63,6 +64,7 @@ router.post('/api/v1/auth', (req, res, next) => {
     [row.id]);
 		query_add_token.on('row', (row) => {
 			results.push(row);
+			console.log(row);
 		});
 	  }
 	});
@@ -76,8 +78,9 @@ router.post('/api/v1/auth', (req, res, next) => {
     // After all data is returned, close connection and return results
     query.on('end', () => {
       done();
-      return res.json(results);
-    });
+     // return res.json(results);
+	  return token;
+	});
   });
 });
 //end auth user
