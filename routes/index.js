@@ -63,8 +63,8 @@ router.post('/api/v1/auth', (req, res, next) => {
 		query_add_token=client.query('INSERT INTO tokens (userid) values ($1)',
     [row.id]);
 		query_add_token.on('row', (row) => {
-			results.push(row);
 			console.log(row);
+			results.push(row);			
 		});
 	  }
 	});
