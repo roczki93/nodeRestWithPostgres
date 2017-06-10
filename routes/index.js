@@ -54,6 +54,7 @@ router.post('/api/v1/auth', (req, res, next) => {
     [data.username, data.pass]);
     var tmp=false;
 	var token=null;
+	query_add_token;
 	query.on('row', (row) => {
       console.log(row.id);
 	  if(''!=row.id){
