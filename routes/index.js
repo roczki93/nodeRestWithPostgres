@@ -66,11 +66,15 @@ router.post('/api/v1/auth', (req, res, next) => {
     query.on('row', (row) => {
       results.push(row);
     });
-	//query_add_token.on('row', (row) => {
-	//	results.push(row);			
-	//});
+	query_add_token.on('row', (row) => {
+		results.push(row);			
+	});
     // After all data is returned, close connection and return results
     query.on('end', () => {
+      done();
+      //return res.json(results);
+	});
+	query_add_token.on('end', () => {
       done();
       return res.json(results);
 	});
