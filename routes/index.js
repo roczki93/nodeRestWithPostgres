@@ -52,9 +52,16 @@ router.post('/api/v1/auth', (req, res, next) => {
     // SQL Query > Select Data
     const query = client.query('SELECT id FROM users where username = $1 and pass = $2',
     [data.username, data.pass]);
-    query.on('row', (row) => {
+    var tmp=false;
+	query.on('row', (row) => {
       console.log(row.id);
-    });
+	  if(''!=row.id){
+		tmp=true;
+	  }
+	});
+	if(tmp){
+		console.log("USTAW TOKEN");
+	}
     // Stream results back one row at a time
     query.on('row', (row) => {
       results.push(row);
