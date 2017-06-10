@@ -54,7 +54,6 @@ router.post('/api/v1/auth', (req, res, next) => {
     [data.username, data.pass]);
     var tmp=false;
 	var token=null;
-	console.log("wartosc tmp przed: "+tmp);
 	query.on('row', (row) => {
       console.log(row.id);
 	  if(''!=row.id){
@@ -68,8 +67,6 @@ router.post('/api/v1/auth', (req, res, next) => {
 		});
 	  }
 	});
-	
-	console.log("wartosc tmp po: "+tmp);
     // Stream results back one row at a time
     query.on('row', (row) => {
       results.push(row);
@@ -78,7 +75,7 @@ router.post('/api/v1/auth', (req, res, next) => {
     // After all data is returned, close connection and return results
     query.on('end', () => {
       done();
-      return res.json(results);
+      return res.json(results.id);
 	 // return token;
 	});
   });
