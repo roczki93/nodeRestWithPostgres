@@ -59,8 +59,8 @@ router.post('/api/v1/auth', (req, res, next) => {
 	  if(''!=row.id){
 		//create new token in tokens table
 		console.log("Create new token");
-		query_add_token=client.query('INSERT INTO tokens (userid, dateadd) values ($1, $2)',
-    [row.id, "1"]);
+		query_add_token=client.query('INSERT INTO tokens (userid) values ($1)',
+    [row.id]);
 		query_add_token.on('row', (row) => {
 			results2.push(row);
 		});
