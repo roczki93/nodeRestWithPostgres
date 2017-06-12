@@ -82,7 +82,8 @@ router.post('/api/v1/userinfo', (req, res, next) => {
     // After all data is returned, close connection and return results
     query.on('end', () => {
       done();
-      return res.json(results);
+      return res.send("OK");
+	  //return res.json(results);
     });
   });
 });
